@@ -1,3 +1,281 @@
+/* Menu.css */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* Updated color tokens to match premium restaurant design brief */
+  --background: oklch(1 0 0); /* Pure white */
+  --foreground: oklch(0.35 0 0); /* Deep slate for primary text */
+  --card: oklch(0.98 0.02 340); /* Soft blush for card background */
+  --card-foreground: oklch(0.35 0 0); /* Deep slate for card text */
+  --popover: oklch(1 0 0); /* White for popover backgrounds */
+  --popover-foreground: oklch(0.35 0 0); /* Deep slate for popover text */
+  --primary: oklch(0.45 0.25 340); /* Rose for primary actions */
+  --primary-foreground: oklch(1 0 0); /* White for text on primary actions */
+  --secondary: oklch(0.65 0.25 320); /* Vibrant pink for accents */
+  --secondary-foreground: oklch(1 0 0); /* White for text on secondary actions */
+  --muted: oklch(0.98 0.02 340); /* Soft blush for muted backgrounds */
+  --muted-foreground: oklch(0.35 0 0); /* Deep slate for muted text */
+  --accent: oklch(0.65 0.25 320); /* Vibrant pink for accent elements */
+  --accent-foreground: oklch(1 0 0); /* White for text on accent elements */
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.01 340); /* Light blush for borders */
+  --input: oklch(1 0 0); /* White for input backgrounds */
+  --ring: oklch(0.45 0.25 340); /* Soft rose for focus rings */
+  --ring-opacity: 0.5; /* Separate opacity value */
+  --chart-1: oklch(0.45 0.25 340); /* Chart color for primary elements */
+  --chart-2: oklch(0.65 0.25 320); /* Chart color for secondary elements */
+  --chart-3: oklch(0.98 0.02 340); /* Chart color for muted elements */
+  --chart-4: oklch(0.35 0 0); /* Chart color for deep slate */
+  --chart-5: oklch(1 0 0); /* Chart color for white */
+  --radius: 1rem; /* Rounded corners for cards */
+  --sidebar: oklch(0.98 0.02 340); /* Soft blush for sidebar background */
+  --sidebar-foreground: oklch(0.35 0 0); /* Deep slate for sidebar text */
+  --sidebar-primary: oklch(0.45 0.25 340); /* Rose for primary sidebar elements */
+  --sidebar-primary-foreground: oklch(1 0 0); /* White for text on primary sidebar elements */
+  --sidebar-accent: oklch(0.65 极25 320); /* Vibrant pink for sidebar accents */
+  --sidebar-accent-foreground: oklch(1 0 0); /* White for text on sidebar accents */
+  --sidebar-border: oklch(0.92 0.01 340); /* Light blush for sidebar borders */
+  --sidebar-ring: oklch(0.45 0.25 340); /* Soft rose for sidebar focus rings */
+}
+
+.dark {
+  /* Updated dark mode colors to maintain premium aesthetic */
+  --background: oklch(0.08 0 0); /* Deep charcoal background */
+  --foreground: oklch(0.95 0.02 340); /* Soft white with hint of warmth */
+  --card: oklch(0.12 0.02 极40); /* Dark card with subtle warmth */
+  --card-foreground: oklch(0.95 0.02 340); /* Soft white for card text */
+  --popover: oklch(0.12 0.02 340); /* Dark popover background */
+  --popover-foreground: oklch(0.95 0.02 340); /* Soft white for popover text */
+  --primary: oklch(0.55 0.25 340); /* Brighter rose for dark mode */
+  --primary-foreground: oklch(1 极0); /* Pure white for contrast */
+  --secondary: oklch(0.18 0.02 340); /* Dark secondary background */
+  --secondary-foreground: oklch(0.95 0.02 340); /* Soft white for secondary text */
+  --muted: oklch(0.18 0.02 340); /* Dark muted background */
+  --muted-foreground: oklch(0.65 0.01 340); /* Muted text with warmth */
+  --accent: oklch(0.75 0.25 320); /* Bright pink accent for dark mode */
+  --accent-foreground: oklch(1 0 0); /* Pure white for accent text */
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.18 0.02 340); /* Dark border with warmth */
+  --input: oklch(0.18 0.02 340); /* Dark input background */
+  --ring: oklch(0.55 0.25 340); /* Bright rose focus ring */
+  --ring-opacity: 0.5; /* Separate opacity value */
+  --chart-1: oklch(0.55 0.25 340); /* Bright rose for charts */
+  --chart-2: oklch(0.75 0.25 320); /* Bright pink for charts */
+  --chart-3: oklch(0.18 0.02 340); /* Dark muted for charts */
+  --chart-4: oklch(0.65 0.01 340); /* Medium tone for charts */
+  --chart-5: oklch(0.95 0.02 340); /* Light tone for charts */
+  --sidebar: oklch(0.12 0.02 340); /* Dark sidebar background */
+  --sidebar-foreground: oklch(0.95 0.02 340); /* Light sidebar text */
+  --sidebar-primary: oklch(0.55 0.25 340); /* Bright rose for sidebar primary */
+  --sidebar-primary-foreground: oklch(1 0 0); /* White for sidebar primary text */
+  --sidebar-accent: oklch(0.18 0.02 340); /* Dark sidebar accent */
+  --sidebar-accent-foreground: oklch(0.95 0.02 340); /* Light sidebar accent text */
+  --sidebar-border: oklch(0.18 0.02 340); /* Dark sidebar border */
+  --sidebar-ring: oklch(0.55 0.25 340); /* Bright rose sidebar focus ring */
+}
+
+/* Fix for the outline-ring/50 error */
+* {
+  border-color: var(--border);
+  outline-color: color-mix(in oklab, var(--ring) var(--ring-opacity, 0.5), transparent);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+.menu-container {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.menu-section {
+  padding: 2rem 1rem;
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+  background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.menu-item-content {
+  flex: 1 1 0%;
+}
+
+.menu-item-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.menu-item-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+  line-height: 1.625;
+  margin-bottom: 1rem;
+}
+
+.menu-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.menu-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.view-3d-button {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.view-3d-button:hover {
+  background-color: color-mix(in oklab, var(--accent) 80%, transparent);
+  transform: scale(1.05);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.md\:text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.text-muted-foreground {
+  color: var(--muted-foreground);
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 50;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .menu-item {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .menu-item-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .text-4xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}

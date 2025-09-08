@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { MenuItem } from "./MenuItem";
 import { ARModal } from "./ARModal";
+import { ChefHat, Sparkles } from "lucide-react";
 
 interface MenuSection {
   id: number;
@@ -102,10 +103,15 @@ export function MenuCard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [flipped, setFlipped] = useState(false);
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
+  const [animationComplete, setAnimationComplete] = useState(false);
 
   useEffect(() => {
-    // trigger flip animation
-    const timer = setTimeout(() => setFlipped(true), 2000);
+    // Enhanced flip animation with delay
+    const timer = setTimeout(() => {
+      setFlipped(true);
+      // Mark animation complete after flip finishes
+      setTimeout(() => setAnimationComplete(true), 1500);
+    }, 2500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -120,105 +126,158 @@ export function MenuCard() {
   const currentSection = menuData.find((section) => section.id === currentPage);
 
   return (
-    <div className="min-h-screen text-white flex items-center justify-center p-2 sm:p-5 font-serif">
-      <div className="relative w-full h-screen sm:w-[90%] sm:max-w-[800px] sm:min-h-[600px] perspective">
-        {/* Notebook container */}
+    <div className="min-h-screen bg-gradient-to-br from-charcoal via-burgundy-dark to-charcoal text-cream flex items-center justify-center p-4 sm:p-6 font-serif">
+      {/* Ambient Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-burgundy-light/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+
+      <div className="relative w-full max-w-5xl mx-auto perspective z-10">
+        {/* Notebook container with enhanced 3D effect */}
         <div
-          className={`relative w-full h-full transition-transform duration-[1200ms] transform-style-preserve-3d ${
-            flipped ? "rotate-x-180" : ""
+          className={`relative w-full h-[80vh] min-h-[600px] transform-style-preserve-3d transition-all duration-[2000ms] ease-out ${
+            flipped ? "notebook-flip" : ""
           }`}
+          style={{
+            transformStyle: "preserve-3d",
+          }}
         >
-          {/* Front Cover */}
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 sm:p-8 bg-gradient-to-br from-[#600018] to-[#800020] border-2 border-gold rounded-md shadow-2xl backface-hidden">
-            <h1 className="text-3xl sm:text-5xl font-bold text-center text-white">
-              FALCON
-            </h1>
-            <p className="italic text-gold mt-3 sm:mt-4 text-base sm:text-lg">
-              Exquisite Bangalore Cuisine
-            </p>
+          {/* Front Cover - Enhanced Premium Design */}
+          <div className="absolute inset-0 backface-hidden">
+            <div className="w-full h-full menu-gradient luxury-border rounded-2xl premium-shadow relative overflow-hidden">
+              {/* Decorative elements */}
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-gold/5 to-transparent"></div>
+              
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/20 to-transparent animate-shimmer opacity-30"></div>
+              
+              <div className="relative z-10 flex flex-col items-center justify-center h-full p-8 text-center">
+                <div className="mb-8">
+                  <ChefHat className="w-16 h-16 text-gold mx-auto mb-4 animate-gold-glow" />
+                </div>
+                
+                <h1 className="font-display text-6xl md:text-8xl font-bold mb-6 gold-text tracking-wider">
+                  FALCON
+                </h1>
+                
+                <div className="flex items-center gap-2 mb-6">
+                  <Sparkles className="w-5 h-5 text-gold" />
+                  <p className="font-display italic text-gold text-xl md:text-2xl tracking-wide">
+                    Exquisite Bangalore Cuisine
+                  </p>
+                  <Sparkles className="w-5 h-5 text-gold" />
+                </div>
+                
+                <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mb-8"></div>
+                
+                <p className="text-sm uppercase tracking-[0.2em] text-gold/80 font-light">
+                  Est. MMXXIV
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* Back Page - Menu */}
-          <div className="absolute inset-0 flex flex-col bg-burgundy p-6 sm:p-8 border-2 border-gold rounded-md shadow-2xl rotate-y-180 backface-hidden">
-            {/* Header */}
-            <header className="text-center mb-6 sm:mb-8">
-              <h1 className="text-2xl sm:text-4xl font-bold mb-2 text-white">
-                FALCON
-              </h1>
-              <p className="italic text-gold mb-3 sm:mb-4 text-sm sm:text-base">
-                Exotic Flavors of Bangalore
-              </p>
-              <div className="h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent my-3 sm:my-4"></div>
-            </header>
+          {/* Back Page - Enhanced Menu */}
+          <div className="absolute inset-0 rotate-y-180 backface-hidden">
+            <div className="w-full h-full menu-gradient luxury-border rounded-2xl premium-shadow p-8 flex flex-col overflow-hidden">
+              
+              {/* Enhanced Header */}
+              <header className="text-center mb-8">
+                <h1 className="font-display text-4xl md:text-5xl font-bold mb-3 gold-text">
+                  FALCON
+                </h1>
+                <p className="font-display italic text-gold/90 text-lg mb-4 tracking-wide">
+                  Exotic Flavors of Bangalore
+                </p>
+                <div className="flex items-center justify-center gap-4 mb-6">
+                  <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-gold"></div>
+                  <Sparkles className="w-4 h-4 text-gold" />
+                  <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-gold"></div>
+                </div>
+              </header>
 
-            {/* Menu Section */}
-            <div className="flex-1 overflow-y-auto menu-scroll">
-              {currentSection && (
-                <section className="overflow-hidden h-auto sm:h-[270px]">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gold text-center mb-4">
-                    {currentSection.title}
-                  </h2>
+              {/* Menu Section with Enhanced Styling */}
+              <div className="flex-1 overflow-y-auto menu-scroll">
+                {currentSection && (
+                  <section 
+                    key={currentSection.id}
+                    className={`${animationComplete ? 'animate-fade-in-elegant' : ''}`}
+                  >
+                    <h2 className="font-display text-2xl md:text-3xl font-bold text-center mb-8 gold-text">
+                      {currentSection.title}
+                    </h2>
 
-                  <div className="space-y-4">
-                    {currentSection.items.map((item, index) => (
-                      <MenuItem
-                        key={index}
-                        name={item.name}
-                        description={item.description}
-                        price={item.price}
-                        onViewAR={() => handleOpenAR(item.modelFile)}
-                      />
-                    ))}
-                  </div>
-                </section>
-              )}
-            </div>
+                    <div className="space-y-6">
+                      {currentSection.items.map((item, index) => (
+                        <div 
+                          key={index}
+                          className={`${animationComplete ? 'animate-fade-in-elegant' : ''}`}
+                          style={{ animationDelay: `${index * 200}ms` }}
+                        >
+                          <MenuItem
+                            name={item.name}
+                            description={item.description}
+                            price={item.price}
+                            onViewAR={() => handleOpenAR(item.modelFile)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
+              </div>
 
-            {/* Pagination */}
-            <div className="mt-4 sm:mt-6 flex justify-center items-center gap-2 sm:gap-3 text-sm sm:text-base">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                disabled={currentPage === 1}
-                className="border-gold text-gold hover:bg-gold hover:text-burgundy"
-              >
-                Prev
-              </Button>
-
-              {menuData.map((section) => (
+              {/* Enhanced Pagination */}
+              <div className="mt-8 flex justify-center items-center gap-4">
                 <Button
-                  key={section.id}
-                  variant={currentPage === section.id ? "default" : "outline"}
+                  variant="outline"
                   size="sm"
-                  onClick={() => setCurrentPage(section.id)}
-                  className={
-                    currentPage === section.id
-                      ? "bg-gold text-burgundy hover:bg-gold-dark"
-                      : "border-gold text-gold hover:bg-gold hover:text-burgundy"
-                  }
+                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                  disabled={currentPage === 1}
+                  className="btn-elegant disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {section.id}
+                  Previous
                 </Button>
-              ))}
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() =>
-                  setCurrentPage(Math.min(menuData.length, currentPage + 1))
-                }
-                disabled={currentPage === menuData.length}
-                className="border-gold text-gold hover:bg-gold hover:text-burgundy"
-              >
-                Next
-              </Button>
+                <div className="flex gap-2">
+                  {menuData.map((section) => (
+                    <Button
+                      key={section.id}
+                      variant={currentPage === section.id ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setCurrentPage(section.id)}
+                      className={
+                        currentPage === section.id
+                          ? "btn-premium"
+                          : "btn-elegant w-10 h-10"
+                      }
+                    >
+                      {section.id}
+                    </Button>
+                  ))}
+                </div>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    setCurrentPage(Math.min(menuData.length, currentPage + 1))
+                  }
+                  disabled={currentPage === menuData.length}
+                  className="btn-elegant disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Next
+                </Button>
+              </div>
+
+              {/* Enhanced Footer */}
+              <footer className="mt-8 text-center pt-6 border-t border-gold/20">
+                <p className="font-display italic text-gold/80 text-lg tracking-wide">
+                  Bon Appétit!
+                </p>
+              </footer>
             </div>
-
-            {/* Footer */}
-            <footer className="mt-4 sm:mt-6 text-center pt-3 sm:pt-4 italic text-gold text-sm sm:text-base">
-              Bon Appétit!
-            </footer>
           </div>
         </div>
       </div>
