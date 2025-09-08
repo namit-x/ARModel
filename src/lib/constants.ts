@@ -28,14 +28,14 @@ export const MENU_ITEMS = {
       name: "Truffle Arancini",
       description: "Crispy risotto spheres with black truffle and aged parmesan",
       price: 28,
-      model: "truffle-arancini.glb",
+      model: "bili.glb",
     },
     {
       id: "oyster-selection",
       name: "Oyster Selection",
       description: "Daily selection of fresh oysters with champagne mignonette",
       price: 36,
-      model: "oyster-selection.glb",
+      model: "bili.glb",
     },
     {
       id: "foie-gras",

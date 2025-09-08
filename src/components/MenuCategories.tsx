@@ -15,16 +15,19 @@ const menuCategories = [
         name: "Oysters Rockefeller",
         description: "Fresh Blue Point oysters with spinach, herbs, and Pernod",
         price: "$24",
+        modelFile: "/bili.glb",
       },
       {
         name: "Foie Gras Terrine",
         description: "House-made terrine with brioche and cherry compote",
         price: "$32",
+        modelFile: "/bili.glb",
       },
       {
         name: "Tuna Tartare",
         description: "Yellowfin tuna with avocado, citrus, and sesame tuile",
         price: "$28",
+        modelFile: "truffle-arancini.glb",
       },
     ],
   },
@@ -37,16 +40,19 @@ const menuCategories = [
         name: "Wagyu Beef Tenderloin",
         description: "A5 Wagyu with truffle jus, roasted vegetables, and potato gratin",
         price: "$85",
+        modelFile: "wagyu-beef.glb",
       },
       {
         name: "Lobster Thermidor",
         description: "Maine lobster with cognac cream sauce and herb crust",
         price: "$68",
+        modelFile: "lobster-thermidor.glb",
       },
       {
         name: "Duck Confit",
         description: "Slow-cooked duck leg with cherry gastrique and wild rice",
         price: "$42",
+        modelFile: "duck-confit.glb",
       },
     ],
   },
@@ -59,16 +65,19 @@ const menuCategories = [
         name: "Chocolate Soufflé",
         description: "Dark chocolate soufflé with vanilla bean ice cream",
         price: "$18",
+        modelFile: "chocolate-souffle.glb",
       },
       {
         name: "Crème Brûlée",
         description: "Classic vanilla custard with caramelized sugar",
         price: "$14",
+        modelFile: "creme-brulee.glb",
       },
       {
         name: "Tarte Tatin",
         description: "Upside-down apple tart with Calvados ice cream",
         price: "$16",
+        modelFile: "tarte-tatin.glb",
       },
     ],
   },
@@ -81,16 +90,19 @@ const menuCategories = [
         name: "Lumière Signature",
         description: "Hennessy XO, Grand Marnier, fresh citrus, and gold flakes",
         price: "$28",
+        modelFile: "lumiere-signature.glb",
       },
       {
         name: "Smoked Old Fashioned",
         description: "Bourbon, maple syrup, bitters, served with applewood smoke",
         price: "$18",
+        modelFile: "smoked-old-fashioned.glb",
       },
       {
         name: "Rose Garden",
         description: "Gin, elderflower, rose water, and champagne",
         price: "$16",
+        modelFile: "rose-garden.glb",
       },
     ],
   },
@@ -102,6 +114,7 @@ export function MenuCategories() {
     description: string
     price: string
     type: "starter" | "main" | "dessert" | "cocktail"
+    modelFile: string
   } | null>(null)
 
   const handleView3D = (item: any, categoryId: string) => {
@@ -119,6 +132,7 @@ export function MenuCategories() {
       description: item.description,
       price: item.price,
       type: dishType,
+      modelFile: item.modelFile,
     })
   }
 
@@ -188,6 +202,7 @@ export function MenuCategories() {
           dishDescription={selectedDish.description}
           dishPrice={selectedDish.price}
           dishType={selectedDish.type}
+          modelFile={selectedDish.modelFile}
         />
       )}
     </>

@@ -2,8 +2,6 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../components/ui/dialog"
 import { DishViewer } from "./dish-viewer"
-import { Button } from "../components/ui/button"
-import { X } from "lucide-react"
 
 interface DishModalProps {
   isOpen: boolean
@@ -12,9 +10,17 @@ interface DishModalProps {
   dishDescription: string
   dishPrice: string
   dishType: "starter" | "main" | "dessert" | "cocktail"
+  modelFile: string
 }
 
-export function DishModal({ isOpen, onClose, dishName, dishDescription, dishPrice, dishType }: DishModalProps) {
+export function DishModal({
+  isOpen,
+  onClose,
+  dishName,
+  dishDescription,
+  dishPrice,
+  dishType,
+}: DishModalProps) {
   const descriptionId = `dish-description-${dishName.replace(/\s+/g, "-").toLowerCase()}`
 
   return (
@@ -32,23 +38,12 @@ export function DishModal({ isOpen, onClose, dishName, dishDescription, dishPric
               </DialogDescription>
               <div className="font-serif text-xl font-bold text-primary">{dishPrice}</div>
             </div>
-            <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0">
-              <X className="h-4 w-4" />
-            </Button>
           </div>
         </DialogHeader>
 
         <div className="flex-1 p-6 pt-4">
-          <div className="w-full h-full rounded-lg overflow-hidden border border-border/30">
-            <DishViewer dishName={dishName} dishType={dishType} />
-          </div>
-        </div>
-
-        <div className="p-6 pt-0 border-t border-border/30">
-          <div className="flex justify-center">
-            <p className="font-sans text-xs text-muted-foreground uppercase tracking-wider">
-              Rotate • Zoom • Explore in 3D
-            </p>
+          <div className="w-full h-[400px] rounded-lg overflow-hidden border border-border/30">
+            <DishViewer dishName={dishName} dishType={dishType} modelFile={"bili.glb"} />
           </div>
         </div>
       </DialogContent>
