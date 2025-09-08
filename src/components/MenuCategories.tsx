@@ -1,5 +1,9 @@
+"use client"
+
+import { useState } from "react"
 import { Card, CardContent } from "../components/ui/card"
 import { Button } from "../components/ui/button"
+import { DishModal } from "../3d/dish-modal"
 
 const menuCategories = [
   {
@@ -93,56 +97,99 @@ const menuCategories = [
 ]
 
 export function MenuCategories() {
+  const [selectedDish, setSelectedDish] = useState<{
+    name: string
+    description: string
+    price: string
+    type: "starter" | "main" | "dessert" | "cocktail"
+  } | null>(null)
+
+  const handleView3D = (item: any, categoryId: string) => {
+    const dishType =
+      categoryId === "starters"
+        ? "starter"
+        : categoryId === "mains"
+          ? "main"
+          : categoryId === "desserts"
+            ? "dessert"
+            : "cocktail"
+
+    setSelectedDish({
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      type: dishType,
+    })
+  }
+
   return (
-    <section className="py-16 px-4 max-w-4xl mx-auto" id='menu'>
-      <div className="space-y-20">
-        {menuCategories.map((category) => (
-          <div key={category.id} className="space-y-8">
-            <div className="text-center space-y-4">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground tracking-tight">
-                {category.title}
-              </h2>
-              <div className="w-16 h-px bg-primary mx-auto"></div>
-              <p className="font-sans text-lg text-muted-foreground max-w-md mx-auto leading-relaxed">
-                {category.description}
-              </p>
-            </div>
+    <>
+      <section className="py-16 px-4 max-w-4xl mx-auto">
+        <div className="space-y-20">
+          {menuCategories.map((category) => (
+            <div key={category.id} className="space-y-8">
+              <div className="text-center space-y-4">
+                <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+                  {category.title}
+                </h2>
+                <div className="w-16 h-px bg-primary mx-auto"></div>
+                <p className="font-sans text-lg text-muted-foreground max-w-md mx-auto leading-relaxed">
+                  {category.description}
+                </p>
+              </div>
 
-            <div className="space-y-4">
-              {category.items.map((item, itemIndex) => (
-                <Card
-                  key={itemIndex}
-                  className="border-border/30 hover:border-primary/30 transition-all duration-300 hover:shadow-lg"
-                >
-                  <CardContent className="p-6">
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-start gap-4">
-                        <div className="flex-1 space-y-2">
-                          <h3 className="font-serif text-xl font-semibold text-foreground tracking-tight">
-                            {item.name}
-                          </h3>
-                          <p className="font-sans text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+              <div className="space-y-4">
+                {category.items.map((item, itemIndex) => (
+                  <Card
+                    key={itemIndex}
+                    className="border-border/30 hover:border-primary/30 transition-all duration-300 hover:shadow-lg"
+                  >
+                    <CardContent className="p-6">
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-start gap-4">
+                          <div className="flex-1 space-y-2">
+                            <h3 className="font-serif text-xl font-semibold text-foreground tracking-tight">
+                              {item.name}
+                            </h3>
+                            <p className="font-sans text-muted-foreground text-sm leading-relaxed">
+                              {item.description}
+                            </p>
+                          </div>
+                          <div className="font-serif text-xl font-bold text-primary whitespace-nowrap">
+                            {item.price}
+                          </div>
                         </div>
-                        <div className="font-serif text-xl font-bold text-primary whitespace-nowrap">{item.price}</div>
-                      </div>
 
-                      <div className="flex justify-end pt-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="font-sans text-xs uppercase tracking-wider border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 min-h-[44px] px-6 bg-transparent"
-                        >
-                          View in 3D
-                        </Button>
+                        <div className="flex justify-end pt-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="font-sans text-xs uppercase tracking-wider border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 min-h-[44px] px-6 bg-transparent"
+                            onClick={() => handleView3D(item, category.id)}
+                          >
+                            View in 3D
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </section>
+          ))}
+        </div>
+      </section>
+
+      {selectedDish && (
+        <DishModal
+          isOpen={!!selectedDish}
+          onClose={() => setSelectedDish(null)}
+          dishName={selectedDish.name}
+          dishDescription={selectedDish.description}
+          dishPrice={selectedDish.price}
+          dishType={selectedDish.type}
+        />
+      )}
+    </>
   )
 }
