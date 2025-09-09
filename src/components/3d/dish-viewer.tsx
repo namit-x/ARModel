@@ -1,6 +1,6 @@
 "use client"
 
-import React, {
+import {
   useEffect,
   forwardRef,
   useImperativeHandle,
@@ -24,7 +24,7 @@ interface DishViewerProps {
 
 // Wrapped React Component
 export const DishViewer = forwardRef<ModelViewerElement, DishViewerProps>(
-  ({ dishName, dishType, modelFile }, ref) => {
+  ({ dishName, modelFile }, ref) => {
     const internalRef = useRef<ModelViewerElement>(null)
 
     // Expose the <model-viewer> DOM node to parent via ref
@@ -45,19 +45,25 @@ export const DishViewer = forwardRef<ModelViewerElement, DishViewerProps>(
 
     return (
       <div className="w-full h-full">
-        <model-viewer
-          ref={internalRef}
-          src={modelSrc}
-          alt={`3D model of ${dishName}`}
-          ar
-          ar-modes="scene-viewer quick-look webxr"
-          camera-controls
-          auto-rotate
-          className="w-full h-full rounded-lg"
-          style={{ backgroundColor: "#f8fafc" }}
-          loading="eager"
-          reveal="auto"
-        />
+        return (
+        <div className="w-full h-full">
+          {/* @ts-ignore */}
+          <model-viewer
+            ref={internalRef}
+            src={modelSrc}
+            alt={`3D model of ${dishName}`}
+            ar
+            ar-modes="scene-viewer quick-look webxr"
+            camera-controls
+            auto-rotate
+            className="w-full h-full rounded-lg"
+            style={{ backgroundColor: "#f8fafc" }}
+            loading="eager"
+            reveal="auto"
+          />
+        </div>
+        )
+
       </div>
     )
   }

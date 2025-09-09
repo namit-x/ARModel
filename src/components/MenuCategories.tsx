@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Card, CardContent } from "../components/ui/card"
 import { Button } from "../components/ui/button"
-import { DishModal } from "../3d/dish-modal"
+import { DishModal } from "./3d/dish-modal"
 
 const menuCategories = [
   {

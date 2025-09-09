@@ -4,7 +4,7 @@ import { MenuCategories } from "./components/MenuCategories"
 import { MenuNavigation } from "./components/MenuNavigation"
 import { Toaster } from "./components/ui/toaster"
 import { TooltipProvider } from "./components/ui/tooltip"
-import { DishViewer } from "./3d/dish-viewer" // Adjust path if needed
+import { DishViewer } from "./components/3d/dish-viewer" // Adjust path if needed
 import "./App.css"
 
 function App() {
