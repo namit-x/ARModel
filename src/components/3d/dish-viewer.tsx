@@ -45,7 +45,6 @@ export const DishViewer = forwardRef<ModelViewerElement, DishViewerProps>(
 
     return (
       <div className="w-full h-full">
-        return (
         <div className="w-full h-full">
           {/* @ts-ignore */}
           <model-viewer
@@ -62,8 +61,7 @@ export const DishViewer = forwardRef<ModelViewerElement, DishViewerProps>(
             reveal="auto"
           />
         </div>
-        )
-
+        
       </div>
     )
   }
