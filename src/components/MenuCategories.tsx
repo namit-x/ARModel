@@ -138,7 +138,7 @@ export function MenuCategories() {
 
   return (
     <>
-      <section className="py-16 px-4 max-w-4xl mx-auto">
+      <section className="py-16 px-4 max-w-4xl mx-auto" id="menu">
         <div className="space-y-20">
           {menuCategories.map((category) => (
             <div key={category.id} className="space-y-8">
